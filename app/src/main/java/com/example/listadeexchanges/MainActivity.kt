@@ -39,6 +39,7 @@ import java.io.IOException
 import javax.inject.Inject
 
 @AndroidEntryPoint
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -100,9 +101,9 @@ fun ExchangeItem(
             )
 
         Text(
-            text = if(exchange.active) "Activa" else "Inactiva",
+            text = if (exchange.active) "Activa" else "Inactiva",
             style = MaterialTheme.typography.body2,
-            color = if(exchange.active) Color.Green else Color.Red ,
+            color = if (exchange.active) Color.Green else Color.Red,
             fontStyle = FontStyle.Italic,
             modifier = Modifier.align(Alignment.CenterVertically)
         )
@@ -112,15 +113,6 @@ fun ExchangeItem(
             style = MaterialTheme.typography.body2,
             overflow = TextOverflow.Ellipsis
         )
-    }
-}
-
-@Composable
-fun ExchangeScreen(viewModel: ExchangeViewModel = hiltViewModel()) {
-    //val coin = viewModel.coin.value
-
-    Column(modifier = Modifier.fillMaxSize()) {
-
     }
 }
 
