@@ -25,6 +25,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.listadeexchanges.ui.theme.ListaDeExchangesTheme
+import com.example.listadeexchanges.util.Resource
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
@@ -142,3 +143,30 @@ interface ExchangeApi {
     @GET("/v1/exchanges/{exchangeId}")
     suspend fun getExchange(@Path("exchangeId") exchangeId: String): ExchangeDto
 }
+
+class ExchangesRepository @Inject constructor(
+    private val api: ExchangeApi
+) {
+    fun getExchanges(): Flow<Resource<List<ExchangeDto>>> = flow {
+        try {
+            emit(Resource.Loading()) //indicar que estamos cargando
+
+            val exchanges =
+                api.getExchanges() //descarga las monedas de internet, se supone quedemora algo
+
+            emit(Resource.Success(exchanges)) //indicar que se cargo correctamente y pasarle las monedas
+        } catch (e: HttpException) {
+            //error general HTTP
+            emit(Resource.Error(e.message ?: "Error HTTP GENERAL"))
+        } catch (e: IOException) {
+            //debe verificar tu conexion a internet
+            emit(Resource.Error(e.message ?: "verificar tu conexion a internet"))
+        }
+    }
+}
+
+data class ExchangeListState(
+    val isLoading: Boolean = false,
+    val exchanges: List<ExchangeDto> = emptyList(),
+    val error: String = ""
+)
