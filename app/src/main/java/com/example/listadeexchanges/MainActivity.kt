@@ -87,7 +87,7 @@ fun ExchangeItem(
         .padding(20.dp)
     ) {
         Text(
-            text = exchange.name,
+            text = "(${exchange.name}) " ,
             style = MaterialTheme.typography.body1,
             overflow = TextOverflow.Ellipsis,
 
@@ -101,7 +101,7 @@ fun ExchangeItem(
             )
 
         Text(
-            text = if (exchange.active) "Activa" else "Inactiva",
+            text = if (exchange.active) " Activa " else " Inactiva ",
             style = MaterialTheme.typography.body2,
             color = if (exchange.active) Color.Green else Color.Red,
             fontStyle = FontStyle.Italic,
@@ -142,9 +142,9 @@ class ExchangesRepository @Inject constructor(
             emit(Resource.Loading()) //indicar que estamos cargando
 
             val exchanges =
-                api.getExchanges() //descarga las monedas de internet, se supone quedemora algo
+                api.getExchanges() //descarga las exchanges de internet, se supone que demora algo
 
-            emit(Resource.Success(exchanges)) //indicar que se cargo correctamente y pasarle las monedas
+            emit(Resource.Success(exchanges)) //indicar que se cargo correctamente y pasarle las exchanges
         } catch (e: HttpException) {
             //error general HTTP
             emit(Resource.Error(e.message ?: "Error HTTP GENERAL"))
