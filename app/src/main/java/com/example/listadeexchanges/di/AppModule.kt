@@ -19,4 +19,6 @@ object AppModule {
             .add(KotlinJsonAdapterFactory())
             .build()
     }
+
+
 }
