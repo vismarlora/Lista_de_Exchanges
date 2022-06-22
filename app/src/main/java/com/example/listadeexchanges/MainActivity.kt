@@ -99,7 +99,6 @@ fun ExchangeItem(
 
             )
 
-
         Text(
             text = if(exchange.active) "Activa" else "Inactiva",
             style = MaterialTheme.typography.body2,
@@ -121,10 +120,8 @@ fun ExchangeScreen(viewModel: ExchangeViewModel = hiltViewModel()) {
     //val coin = viewModel.coin.value
 
     Column(modifier = Modifier.fillMaxSize()) {
-        /* Text(text = coin.name)
-         Text(text = coin.symbol)*/
-    }
 
+    }
 }
 
 //RUTA: data/remote/dto
